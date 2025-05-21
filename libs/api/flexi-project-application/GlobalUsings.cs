@@ -1,0 +1,10 @@
+﻿global using Mediator;
+global using FlexiProject.Application.DTOs.Users;
+global using FlexiProject.Core.DAL.Abstractions;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.DependencyInjection;
+global using FlexiProject.Core.Entities;
+global using Riok.Mapperly.Abstractions;
+global using FlexiProject.Application.Mappers;
+global using FlexiProject.Application.Exceptions;
+global using System.Text.Json.Serialization;

@@ -1,0 +1,9 @@
+﻿namespace FlexiProject.Application.DTOs.Users;
+
+public sealed record UserDto
+{
+    public required Guid Id { get; init; }
+    public required string Name { get; init; }
+    public required string Email { get; init; }
+    public required string Avatar { get; init; }
+}

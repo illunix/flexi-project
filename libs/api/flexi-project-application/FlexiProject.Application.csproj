@@ -10,13 +10,21 @@
     <PackageReference Include="Ardalis.SmartEnum.SystemTextJson" Version="8.1.0" />
     <PackageReference Include="AWSSDK.S3" Version="3.7.304.5" />
     <PackageReference Include="Mediator.Abstractions" Version="2.1.7" />
+    <PackageReference Include="Mediator.SourceGenerator" Version="2.1.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0-rc.2.24474.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="MimeTypesMap" Version="1.0.9" />
-    <PackageReference Include="Riok.Mapperly" Version="4.1.0" />
+    <PackageReference Include="Riok.Mapperly" Version="4.2.1" />
     <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\flex-project-core\FlexiProject.Core.csproj" />
   </ItemGroup>
 
 </Project>
