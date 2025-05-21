@@ -1,0 +1,45 @@
+{
+  "name": "flexi-project-api",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/flexi-project-api",
+  "targets": {
+    "build": {
+      "executor": "@nx-dotnet/core:build",
+      "outputs": [
+        "{workspaceRoot}/dist/apps/flexi-project-api",
+        "{workspaceRoot}/dist/intermediates/apps/flexi-project-api",
+        "{projectRoot}/bin",
+        "{projectRoot}/obj"
+      ],
+      "cache": true,
+      "dependsOn": ["^build"],
+      "options": {
+        "configuration": "Debug",
+        "noDependencies": true
+      },
+      "configurations": {
+        "production": {
+          "configuration": "Release"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx-dotnet/core:serve",
+      "options": {
+        "configuration": "Debug"
+      },
+      "configurations": {
+        "production": {
+          "configuration": "Release"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx-dotnet/core:format",
+      "cache": true,
+      "inputs": ["{projectRoot}/**/*.{cs,fs,vb}"]
+    }
+  },
+  "tags": []
+}
