@@ -3,6 +3,7 @@
   [maximizable]="true"
   [header]="`${header} user`"
   [visible]="visible()"
+  (onShow)="onShow()"
   [modal]="true"
   [position]="'right'"
   [focusOnShow]="false"
@@ -59,7 +60,7 @@
   <ng-template pTemplate="footer">
     <p-button label="Cancel" severity="secondary" (onClick)="close.emit()" />
     <p-button
-      label="Add"
+      [label]="header"
       (onClick)="onAddOrUpdate()"
       [loading]="usersService.addedUser.isLoading()"
     />

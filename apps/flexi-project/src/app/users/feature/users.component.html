@@ -1,7 +1,8 @@
 <p-toast />
 <p-confirmDialog />
+<h1 class="mb-0">Users</h1>
 <div class="flex justify-content-end">
-  <p-button label="Add" (onClick)="showAddEditUserDialog.set(true)" />
+  <p-button label="Add" (onClick)="onToggleAddEditUserDialog()" />
 </div>
 <p-table
   size="small"
@@ -43,7 +44,7 @@
     }
   </ng-template>
   <ng-template #body let-user>
-    <tr class="cursor-pointer hover:bg-gray-100">
+    <tr class="hover:bg-gray-100">
       <td class="col-1">
         @if (user.avatar) {
         <p-avatar [image]="getAvatarUrl(user)" size="large" />
@@ -64,6 +65,12 @@
           style="float: inline-end"
           title="Delete user"
         ></i>
+        <i
+          (click)="onToggleAddEditUserDialog(user.id)"
+          class="pi pi-pencil cursor-pointer mr-3 mt-1"
+          style="float: inline-end"
+          title="Edit user"
+        ></i>
       </td>
     </tr>
   </ng-template>
@@ -71,4 +78,5 @@
 <flexi-project-add-edit-user-dialog
   [visible]="showAddEditUserDialog()"
   (close)="showAddEditUserDialog.set(false)"
+  [userId]="selectedUserId()"
 ></flexi-project-add-edit-user-dialog>

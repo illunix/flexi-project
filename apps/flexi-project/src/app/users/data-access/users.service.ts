@@ -30,16 +30,13 @@ export class UsersService {
     },
   });
 
-  userId = signal<Guid | null>(null);
-  /*
-  userDetails = rxResource({
-    request: () => this.userId(),
-    loader: ({ request }): Observable<UserDetailsDto> =>
-      from(
-        this.#flexiProjectApi.client.users.byUserId(request ?? '').get()
-      ).pipe(map((q) => q!)),
+  userId$ = new Subject<Guid>();
+  #userId = toSignal(this.userId$);
+  userDetails = resource({
+    request: this.#userId,
+    loader: ({ request }) =>
+      this.#flexiProjectApi.client.users.byUserId(request).get(),
   });
-  */
 
   addUser$ = new Subject<CreateUserDto | null>();
   #addUser = toSignal(this.addUser$);
@@ -48,11 +45,14 @@ export class UsersService {
     loader: ({ request }) => this.#flexiProjectApi.client.users.post(request!),
   });
 
-  updateUser = signal<UpdateUserDto | null>(null);
+  updateUser$ = new Subject<{ userId: Guid; user: UpdateUserDto }>();
+  #updateUser = toSignal(this.updateUser$);
   updatedUser = resource({
-    request: this.updateUser,
+    request: this.#updateUser,
     loader: ({ request }) =>
-      this.#flexiProjectApi.client.users.byUserId('').put(request!),
+      this.#flexiProjectApi.client.users
+        .byUserId(request?.userId ?? '')
+        .put(request?.user ?? {}),
   });
 
   deleteUser$ = new Subject<Guid | null>();

@@ -45,12 +45,19 @@ export class UsersComponent {
   readonly #msgService = inject(MessageService);
 
   readonly showAddEditUserDialog = signal<boolean>(false);
+  readonly selectedUserId = signal<Guid | undefined>(undefined);
 
   constructor() {
     explicitEffect(
-      [this.usersService.addedUser.status],
-      ([addedUserStatus]) => {
-        if (addedUserStatus === ResourceStatus.Resolved) {
+      [
+        this.usersService.addedUser.status,
+        this.usersService.updatedUser.status,
+      ],
+      ([addedUserStatus, updatedUserStatus]) => {
+        if (
+          addedUserStatus === ResourceStatus.Resolved ||
+          updatedUserStatus === ResourceStatus.Resolved
+        ) {
           this.usersService.users.reload();
         }
       }
@@ -91,6 +98,11 @@ export class UsersComponent {
     if (!isSamePage) {
       this.usersService.filter.set(event);
     }
+  }
+
+  onToggleAddEditUserDialog(userId: Guid | undefined = undefined) {
+    this.selectedUserId.set(userId);
+    this.showAddEditUserDialog.set(!this.showAddEditUserDialog());
   }
 
   onDeleteUser(event: Event, userId: Guid) {
