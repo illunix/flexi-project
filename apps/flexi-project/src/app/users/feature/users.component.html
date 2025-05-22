@@ -1,0 +1,74 @@
+<p-toast />
+<p-confirmDialog />
+<div class="flex justify-content-end">
+  <p-button label="Add" (onClick)="showAddEditUserDialog.set(true)" />
+</div>
+<p-table
+  size="small"
+  stripedRows
+  [value]="usersService.users.value()?.list!"
+  styleClass="p-datatable-striped"
+  [paginator]="true"
+  [rows]="10"
+  [loading]="usersService.users.isLoading()"
+  [lazy]="true"
+  [totalRecords]="usersService.users.value()?.dataCount ?? 0"
+  (onLazyLoad)="load($event)"
+  [showLoader]="false"
+>
+  <ng-template #header>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Email</th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template #loadingbody>
+    @for (i of 5 | repeat; track i) {
+    <tr>
+      <td>
+        <p-skeleton styleClass="border-round-xs"></p-skeleton>
+      </td>
+      <td>
+        <p-skeleton styleClass="border-round-xs"></p-skeleton>
+      </td>
+      <td>
+        <p-skeleton styleClass="border-round-xs"></p-skeleton>
+      </td>
+      <td>
+        <p-skeleton styleClass="border-round-xs"></p-skeleton>
+      </td>
+    </tr>
+    }
+  </ng-template>
+  <ng-template #body let-user>
+    <tr class="cursor-pointer hover:bg-gray-100">
+      <td class="col-1">
+        @if (user.avatar) {
+        <p-avatar [image]="getAvatarUrl(user)" size="large" />
+        } @else {
+        <p-avatar
+          [label]="getFirstLetter(user.name)"
+          size="large"
+          [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }"
+        />
+        }
+      </td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>
+        <i
+          (click)="onDeleteUser($event, user.id)"
+          class="pi pi-trash p-error cursor-pointer"
+          style="float: inline-end"
+          title="Delete user"
+        ></i>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<flexi-project-add-edit-user-dialog
+  [visible]="showAddEditUserDialog()"
+  (close)="showAddEditUserDialog.set(false)"
+></flexi-project-add-edit-user-dialog>

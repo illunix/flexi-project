@@ -8,3 +8,4 @@ global using Riok.Mapperly.Abstractions;
 global using FlexiProject.Application.Mappers;
 global using FlexiProject.Application.Exceptions;
 global using System.Text.Json.Serialization;
+global using FlexiProject.Application.Pagination;

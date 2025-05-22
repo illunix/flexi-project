@@ -1,0 +1,6 @@
+@import 'primeflex/primeflex.scss';
+
+input {
+    @include styleclass('w-full mt-1');
+}
+

@@ -14,7 +14,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@flexi-project/shared/app-config": [
+        "libs/web/shared/app-config/src/index.ts"
+      ],
+      "@flexi-project/shared/data-access": [
+        "libs/web/shared/data-access/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

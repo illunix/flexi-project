@@ -10,17 +10,48 @@ internal static class UsersEndpoints
             .MapGet(
                 "/",
                 async (
+                    int page,
+                    int pageSize,
                     ISender sender,
                     CancellationToken ct
                 ) => Results.Ok(await sender.Send(
-                    new GetUsersQuery(),
+                    new GetUsersQuery()
+                    {
+                        PageNumber = page,
+                        PageSize = pageSize
+                    },
                     ct
                 ))
             )
             .WithName("GetUsers")
             .WithSummary("Users get operation")
-            .Produces<IEnumerable<UserDto>>()
+            .Produces<Paged<UserDto>>()
             .Produces(StatusCodes.Status400BadRequest);
+
+        group
+            .MapGet(
+                "/{userId}",
+                async (
+                    Guid userId,
+                    ISender sender,
+                    CancellationToken ct
+                ) =>
+                {
+                    var user = await sender.Send(
+                        new GetUserDetailsQuery(userId),
+                        ct
+                    );
+                    if (user is null)
+                        return Results.NotFound();
+
+                    return Results.Ok(user);
+                }
+            )
+            .WithName("GetUserDetails")
+            .WithSummary("User details get operation")
+            .Produces<UserDetailsDto>()
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status404NotFound);
 
         group
             .MapPost(

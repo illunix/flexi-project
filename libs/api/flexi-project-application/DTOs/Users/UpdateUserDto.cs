@@ -3,5 +3,5 @@
 public sealed record UpdateUserDto : UserMutateDto
 {
     [JsonIgnore]
-    public Guid? Id { get; init; }
+    public Guid Id { get; init; }
 }

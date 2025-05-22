@@ -1,0 +1,67 @@
+<p-toast />
+<p-dialog
+  [maximizable]="true"
+  [header]="`${header} user`"
+  [visible]="visible()"
+  [modal]="true"
+  [position]="'right'"
+  [focusOnShow]="false"
+  [style]="{ width: '40rem', height: '90%' }"
+  [draggable]="false"
+  [closeOnEscape]="true"
+  [closable]="false"
+  [maximizable]="false"
+>
+  <ng-template pTemplate="content">
+    <form [formGroup]="form">
+      <label class="block">Name<small class="required">*</small></label>
+      <input
+        pInputText
+        formControlName="name"
+        [class.ng-dirty]="f.name.touched"
+        [class.ng-invalid]="f.name.invalid"
+      />
+      <small *ngxControlError="f.name; track: 'required'" class="p-error"
+        >Field is required</small
+      >
+      <label class="block mt-3">Email<small class="required">*</small></label>
+      <input
+        pInputText
+        formControlName="email"
+        [class.ng-dirty]="f.email.touched"
+        [class.ng-invalid]="f.email.invalid"
+      />
+      <small *ngxControlError="f.email; track: 'required'" class="p-error"
+        >Field is required</small
+      >
+      <small *ngxControlError="f.email; track: 'email'" class="p-error"
+        >Email is invalid</small
+      >
+      <label class="block mt-3">Avatar</label>
+      <p-fileUpload
+        #fileUpload
+        mode="advanced"
+        multiple="false"
+        chooseLabel="Choose"
+        chooseIcon="pi pi-upload"
+        accept="image/*"
+        [multiple]="true"
+        [showCancelButton]="false"
+        [showUploadButton]="false"
+        [previewWidth]="100"
+        [fileLimit]="1"
+        chooseStyleClass="btn-sm border-round-xs"
+        styleClass="btn-sm border-round-xs"
+        (onSelect)="onUploadItemImages($event)"
+      />
+    </form>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancel" severity="secondary" (onClick)="close.emit()" />
+    <p-button
+      label="Add"
+      (onClick)="onAddOrUpdate()"
+      [loading]="usersService.addedUser.isLoading()"
+    />
+  </ng-template>
+</p-dialog>

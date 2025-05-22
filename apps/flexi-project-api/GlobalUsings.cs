@@ -4,3 +4,6 @@ global using Mediator;
 global using Scalar.AspNetCore;
 global using FlexiProject.API.Endpoints;
 global using FlexiProject.Application.Commands.Users;
+global using FlexiProject.Application.Pagination;
+global using FlexiProject.Application;
+global using FlexiProject.Infrastructure;

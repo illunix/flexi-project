@@ -3,14 +3,18 @@
 public sealed class GetUsersQueryHandler(
     IFlexiProjectDbContext ctx,
     UserMapper mapper
-) : IQueryHandler<GetUsersQuery, IEnumerable<UserDto>>
+) : IQueryHandler<GetUsersQuery, Paged<UserDto>>
 {
-    public async ValueTask<IEnumerable<UserDto>> Handle(
-        GetUsersQuery qry, 
+    public async ValueTask<Paged<UserDto>> Handle(
+        GetUsersQuery qry,
         CancellationToken ct
     )
         => await ctx.Users
             .AsNoTracking()
             .Select(q => mapper.MapUserToUserDto(q))
-            .ToListAsync(ct);
+            .ToPaged(
+                qry.PageNumber,
+                qry.PageSize, 
+                ct
+            );
 }

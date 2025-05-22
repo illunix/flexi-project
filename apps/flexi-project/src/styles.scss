@@ -1,1 +1,34 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'primeicons/primeicons' as *;
+@import 'primeflex/primeflex.scss';
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+html * {
+    font-family: 'Lato', serif;
+    font-style: normal;
+}
+
+.p-error {
+    margin-top: 3px;
+    display: block;
+    color: #e24c4c;
+}
+
+.required {
+    color: #e24c4c;
+}
+
+input {
+    border-radius: 0.125rem !important;
+}
+
+button {
+    border-radius: 0.125rem !important;
+}
+
+.p-fileupload-file-info {
+    display: none !important;
+}
+
+.p-fileupload-advanced {
+    border: 1px solid var(--p-inputtext-border-color) !important;
+}
